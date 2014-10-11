@@ -1,0 +1,5 @@
+name: LevelUpTools
+main: me.migsect.LevelUpTools.LevelUpTools
+version: 0.0
+description: Adds tools that can be leveled up and improved over time.
+author: Migsect
