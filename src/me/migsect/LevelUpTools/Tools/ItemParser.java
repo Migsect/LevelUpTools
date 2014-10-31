@@ -1,4 +1,4 @@
-package me.migsect.LevelUpTools.Tools;
+package me.migsect.LevelUpTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;

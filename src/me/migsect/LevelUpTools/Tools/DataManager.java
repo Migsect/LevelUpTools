@@ -1,4 +1,4 @@
-package me.migsect.LevelUpTools.Tools;
+package me.migsect.LevelUpTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,10 +6,6 @@ import java.util.List;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-
-import me.migsect.LevelUpTools.Helper.RawMaterial;
-import me.migsect.LevelUpTools.Helper.ToolType;
-import me.migsect.LevelUpTools.LevelUpTools;
 
 // Used to better access information stored in the config file and .dat files.
 //   handles reading and writing to files (such as the data file).
