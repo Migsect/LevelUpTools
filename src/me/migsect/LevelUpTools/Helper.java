@@ -66,7 +66,17 @@ public class Helper
 		HOE,
 		AXE,
 		PICKAXE,
-		SPADE
+		SPADE;
+		
+		public static ToolType stringToToolType(String str)
+		{
+			if(str.equalsIgnoreCase("SWORD")) return ToolType.SWORD;
+			if(str.equalsIgnoreCase("HOE")) return ToolType.HOE;
+			if(str.equalsIgnoreCase("AXE")) return ToolType.AXE;
+			if(str.equalsIgnoreCase("PICKAXE")) return ToolType.PICKAXE;
+			if(str.equalsIgnoreCase("SPADE")) return ToolType.SPADE;
+			return null;
+		}
 	}
 	
 	public static RawMaterial getRawMaterial(Material tool)

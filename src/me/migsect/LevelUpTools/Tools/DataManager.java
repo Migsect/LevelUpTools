@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.migsect.LevelUpTools.LevelUpTools;
+
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
@@ -63,5 +65,28 @@ public class DataManager
 		{
 			init_level_cost.put(RawMaterial.stringToMat(current_keys.get(i)), plugin.getConfig().getInt("Initial-Level-Cost." + current_keys.get(i)));
 		}
+		current_keys.clear();
+		current_keys.addAll(plugin.getConfig().getConfigurationSection("Repair-Exp-Cost").getKeys(false));
+		for(int i = 0 ; i < current_keys.size(); i++)
+		{
+			init_level_cost.put(RawMaterial.stringToMat(current_keys.get(i)), plugin.getConfig().getInt("Repair-Exp-Cost." + current_keys.get(i)));
+		}
+		current_keys.clear();
+		current_keys.addAll(plugin.getConfig().getConfigurationSection("Level-Up-Item-Types").getKeys(false));
+		for(int i = 0 ; i < current_keys.size(); i++)
+		{
+			init_level_cost.put(ToolType.stringToToolType(current_keys.get(i)), plugin.getConfig().getInt("Level-Up-Item-Types." + current_keys.get(i)));
+		}
+		current_keys.clear();
+		
+		uni_cost-increase = plugin.getConfig().getDouble("Cost-Increase");
+		current_keys.addAll(plugin.getConfig().getConfigurationSection("Vanilla-Enchantments"));
+		for(int i = 0 ; i < current_keys.size(); i++)
+		{
+			vanilla_max_level(Enchantment.getByName(current_keys.get(i))), plugin.getConfig(plugin.getConfig().getDouble("Vanilla-Enchantments." + current_keys.get(i) + ".Max-Level")));
+		}
+		current_keys.clear();
+		
+		
 	}
 }
