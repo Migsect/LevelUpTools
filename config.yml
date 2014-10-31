@@ -1,0 +1,210 @@
+Force-Safe-Enchantments: false
+Experience-Cost-Modifiers:
+    WOOD: 1.0
+    STONE: 2.0
+    GOLD: 0.5
+    IRON: 1.4
+    DIAMOND: 1.2
+Initial-Level-Cost:
+    WOOD: 3
+    STONE: 5
+    GOLD: 5
+    IRON: 10
+    DIAMOND: 20
+Repair-Exp-Cost:
+    WOOD: 0.8
+    STONE: 1.0
+    GOLD: 0.0
+    IRON: 0.2
+    DIAMOND: 0.15
+Level-Up-Item-Types:
+ - PICKAXE
+ - AXE
+ - SPADE
+Cost-Increase: 1.0 
+Vanilla-Enchantments:
+    ARROW_DAMAGE:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    ARROW_FIRE:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    ARROW_INFINITE:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    ARROW_KNOCKBACK:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    DAMAGE_ALL:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    DAMAGE_ARTHROPODS:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    DAMAGE_UNDEAD:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    DIG_SPEED:
+        Upgrade-Cost: 500
+        Cost-Increase: 1.5
+        Max-Level: 5
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+    DURABILITY:
+        Upgrade-Cost: 500
+        Cost-Increase: 2
+        Max-Level: 3
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+    FIRE_ASPECT:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    KNOCKBACK:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    LOOT_BONUS_BLOCKS:
+        Upgrade-Cost: 500
+        Cost-Increase: 2
+        Max-Level: 3
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+    LOOT_BONUS_MOBS:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    LUCK:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    LURE:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    OXYGEN:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    PROTECTION_ENVIRONMENTAL:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    PROTECTION_EXPLOSIONS:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    PROTECTION_FALL:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    PROTECTION_FIRE:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    PROTECTION_PROJECTILE:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    SILK_TOUCH:
+        Upgrade-Cost: 5000
+        Cost-Increase: 2
+        Max-Level: 1
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+    THORNS:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    WATER_WORKER:
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+Do-Check-Placed-Block: true
+Exp-Awards:
+    PICKAXE:
+        STONE: 5
+        NETHERRACK: 1
+        GLOWSTONE: 50
+        ENDER_STONE: 7 
+        OBSIDIAN: 50
+        COAL_ORE: 50
+        IRON_ORE: 100
+        GOLD_ORE: 150
+        REDSTONE_ORE: 150
+        LAPIS_ORE: 250
+        EMERALD_ORE: 1000
+        DIAMOND_ORE: 400
+    SPADE:
+        DIRT: 4
+        MYCEL: 6
+        GRASS: 5
+        SAND: 4
+        GRAVEL: 7
+        SOUL_SAND: 8
+    AXE:
+        OAK_LOG: 5
+        SPRUCE_LOG: 6
+        BIRCH_LOG: 4
+        JUNGLE_LOG: 6
+        ACACIA_LOG: 7
+        DARK_OAK_LOG: 6
+    SWORD:
+        CREEPER: 10
+        SKELETON: 5 
+        SPIDER: 10
+        CAVE_SPIDER: 
+        ZOMBIE: 5
+        SLIME: 3
+        GHAST: 50
+        PIG_ZOMBIE: 
+        ENDERMAN: 25
+        SILVERFISH: 5
+        BLAZE: 50
+        MAGMA_CUBE: 3
+        ENDER_DRAGON: 100
+        PIG: 0
+        SHEEP: 0 
+        COW: 0
+        CHICKEN: 0 
+        SQUID: 0
+        WOLF: 0
+        MUSHROOM_COW: 0
+        VILLAGER: 0 
+    BOW:
+        SPIDER: 0
