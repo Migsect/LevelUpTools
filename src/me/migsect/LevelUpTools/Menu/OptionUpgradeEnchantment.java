@@ -7,6 +7,7 @@ import me.migsect.LevelUpTools.Player.LUTPlayer;
 public class OptionUpgradeEnchantment extends Option {
 
 	
+	@SuppressWarnings("unused")
 	private Enchantment ench_type;
 	
 	public OptionUpgradeEnchantment(Enchantment ench_type)

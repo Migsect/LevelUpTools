@@ -17,7 +17,7 @@ Repair-Exp-Cost:
     GOLD: 0.0
     IRON: 0.2
     DIAMOND: 0.15
-Level-Up-Item-Types:
+Levable-Item-Types:
  - PICKAXE
  - AXE
  - SPADE

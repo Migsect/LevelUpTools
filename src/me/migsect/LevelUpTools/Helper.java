@@ -1,6 +1,10 @@
 package me.migsect.LevelUpTools;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class Helper
 {
@@ -66,7 +70,11 @@ public class Helper
 		HOE,
 		AXE,
 		PICKAXE,
-		SPADE;
+		SPADE,
+		BOW,
+		FISHING_ROD,
+		SHEAR;
+		
 		
 		public static ToolType stringToToolType(String str)
 		{
@@ -75,6 +83,9 @@ public class Helper
 			if(str.equalsIgnoreCase("AXE")) return ToolType.AXE;
 			if(str.equalsIgnoreCase("PICKAXE")) return ToolType.PICKAXE;
 			if(str.equalsIgnoreCase("SPADE")) return ToolType.SPADE;
+			if(str.equalsIgnoreCase("BOW")) return ToolType.BOW;
+			if(str.equalsIgnoreCase("FISHING_ROD")) return ToolType.FISHING_ROD;
+			if(str.equalsIgnoreCase("SHEAR")) return ToolType.SHEAR;
 			return null;
 		}
 	}
@@ -171,5 +182,91 @@ public class Helper
 			if(str.equalsIgnoreCase("DIAMOND")) return RawMaterial.DIAMOND;	
 			return null;
 		}
+	}
+	
+	// returns a list of item stacks of 1 item of the type determined from the string.
+	//  The reason we are return multiple is because some items have multiple variations. (such as a log)
+	public static List<ItemStack> getSimpleItemStack(String str)
+	{
+		List<ItemStack> return_list = new ArrayList<ItemStack>();
+		if(str.equals("OAK_LOG"))
+		{
+			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)0);
+			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)4);
+			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)8);
+			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)12);
+			return_list.add(item1);
+			return_list.add(item2);
+			return_list.add(item3);
+			return_list.add(item4);
+		}
+		else if(str.equals("SPRUCE_LOG"))
+		{
+			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)1);
+			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)5);
+			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)9);
+			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)13);
+			return_list.add(item1);
+			return_list.add(item2);
+			return_list.add(item3);
+			return_list.add(item4);
+		}
+		else if(str.equals("BIRCH_LOG"))
+		{
+			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)2);
+			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)6);
+			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)10);
+			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)14);
+			return_list.add(item1);
+			return_list.add(item2);
+			return_list.add(item3);
+			return_list.add(item4);
+			
+		}
+		else if(str.equals("JUNGLE_LOG"))
+		{
+			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)3);
+			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)7);
+			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)11);
+			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)15);
+			return_list.add(item1);
+			return_list.add(item2);
+			return_list.add(item3);
+			return_list.add(item4);
+			
+		}
+		else if(str.equals("ACACIA_LOG"))
+		{
+			ItemStack item1 = new ItemStack(Material.LOG_2, 1, (short)0);
+			ItemStack item2 = new ItemStack(Material.LOG_2, 1, (short)4);
+			ItemStack item3 = new ItemStack(Material.LOG_2, 1, (short)8);
+			ItemStack item4 = new ItemStack(Material.LOG_2, 1, (short)12);
+			return_list.add(item1);
+			return_list.add(item2);
+			return_list.add(item3);
+			return_list.add(item4);
+			
+		}
+		else if(str.equals("DARK_OAK_LOG"))
+		{
+			ItemStack item1 = new ItemStack(Material.LOG_2, 1, (short)1);
+			ItemStack item2 = new ItemStack(Material.LOG_2, 1, (short)5);
+			ItemStack item3 = new ItemStack(Material.LOG_2, 1, (short)9);
+			ItemStack item4 = new ItemStack(Material.LOG_2, 1, (short)13);
+			return_list.add(item1);
+			return_list.add(item2);
+			return_list.add(item3);
+			return_list.add(item4);
+			
+		}
+		else
+		{
+			Material mat = Material.getMaterial(str);
+			if(mat.equals(null)) return return_list;
+			ItemStack item = new ItemStack(mat, 1);
+			return_list.add(item);
+		}
+		
+		return return_list;
 	}
 }
