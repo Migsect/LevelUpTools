@@ -3,55 +3,58 @@ package me.migsect.LevelUpTools.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.migsect.LevelUpTools.Player.LUTPlayer;
-
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+
 public abstract class Option
 {
-	// A menu item is the basic type.  It will consist of a "On click" in which
-	//   will do something when a player does something.
+	protected String display_name = "BLANK";
+	protected Material display_mat = Material.GRASS;
+	protected short display_durability = 0;
+	protected int display_amount = 1;
+	protected List<String> display_lore = new ArrayList<String>();
 	
-	// Menu Display Modifiers (translated into an itemstack)
-	String item_name = "Default Option Title";
-	List<String> lore_text = new ArrayList<String>();
-	Material material = Material.GRASS;
-	short material_data = 0; // this refers to colors and stuff.
-	
-	// other stuff
-	Menu menu;
-
-	public void setMenu(Menu menu){this.menu = menu;}
-	
-	public Menu getMenu(){return menu;}
-	
-	public void setName(String name){this.item_name = name;}
-	public void setLoreText(List<String> lore_text){this.lore_text = lore_text;}
-	public void setMaterial(Material material){this.material = material;}
-	public void setMaterialData(short data){this.material_data = data;}
-	
-	public List<String> getLoreText(){return lore_text;}
-	
-	
-	// On Click can do a multitude of things.  Firstly it can do a one time
-	//   effect.  On the other hand it may toggle a state.
-	public abstract void onClick(LUTPlayer player);
-	
-	
-	public ItemStack generateItemStack()
+	public ItemStack generateDisplayItem()
 	{
-		ItemStack item = new ItemStack(this.material, 1, this.material_data);
-		
+		ItemStack item = new ItemStack(display_mat, display_amount, display_durability);
 		ItemMeta im = item.getItemMeta();
-		im.setDisplayName(item_name);
-		im.setLore(lore_text);
+		im.setDisplayName(display_name);
+		im.setLore(display_lore);
 		item.setItemMeta(im);
 		
-		Bukkit.getLogger().info("Opt1-Item Name: " + item_name);
-		Bukkit.getLogger().info("Opt2-Item Name: " + item.getItemMeta().getDisplayName());
 		return item;
 	}
+	public void setDisplayName(String str)
+	{
+		this.display_name = str;
+	}
+	public void setDisplayMaterial(Material mat)
+	{
+		this.display_mat = mat;
+	}
+	public void setDisplayDurability(short dur)
+	{
+		this.display_durability = dur;
+	}
+	public void setDisplayAmount(int amnt)
+	{
+		this.display_amount = amnt;
+	}
+	public void setDisplayLore(List<String> lore)
+	{
+		this.display_lore = lore;
+	}
+	public void addDisplayLore(String lore_line)
+	{
+		this.display_lore.add(lore_line);
+	}
+	public void addDisplayLore(List<String> lore_lines)
+	{
+		this.display_lore.addAll(lore_lines);
+	}
+	
+	abstract public void onClick(Player player);
 }

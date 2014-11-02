@@ -1,64 +1,131 @@
 package me.migsect.LevelUpTools.Menu;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class MenuHandler
 {
-	// For quick lookup a Player is used to locate a menu.  A player can only
-	//   have one active menu at a time due to this.  We may allow more than one
-	//   active menu in the future, but the purpose of this is to 
-	public HashMap<Player, Menu> active_menus = new HashMap<Player, Menu>();
+	private static HashMap<String, Menu> active_menus = new HashMap<String, Menu>();
 	
-	// register() will add the menu to the list of active_menus.
-	public void register(Menu menu)
+	public static Menu getNewMenu(Player player)
 	{
-		active_menus.put(menu.getPlayer().getPlayer(), menu);
+		Menu new_menu = new Menu(player, 27, "Menu");
+		active_menus.put(player.getName(), new_menu);
+		return new_menu;
+	}
+	public static Menu getNewMenu(Player player, int size)
+	{
+		if(size % 9 != 0) size = size / 9 + 9;
+		if(size > 54) size = 54;
+		if(size < 9) size = 9;
+		Menu new_menu = new Menu(player, size, "Menu");
+		active_menus.put(player.getName(), new_menu);
+		return new_menu;
+	}
+	public static Menu getNewMenu(Player player, int size, String name)
+	{
+		if(size % 9 != 0) size = size / 9 + 9;
+		if(size > 54) size = 54;
+		if(size < 9) size = 9;
+		Menu new_menu = new Menu(player, size, name);
+		active_menus.put(player.getName(), new_menu);
+		return new_menu;
 	}
 	
-	// deregister() will remove the menu from the registery of active_menus
-	//   a menu should be deregistered whenever it shouldn't be used anymore.
-	//   this is for clean up reasons.
-	public void deregister(Menu menu)
+	public static boolean hasMenu(Player player)
 	{
-		deregister(menu.getPlayer().getPlayer());
+		return active_menus.containsKey(player.getName());
 	}
-	public void deregister(Player player)
+	public static Menu getMenu(Player player)
 	{
-		active_menus.remove(player);
+		return active_menus.get(player.getName());
+	}
+	public static void removeMenu(Player player)
+	{
+		active_menus.remove(active_menus.get(player));
+	}
+	public static boolean isPlayersMenu(Player player, Inventory inv)
+	{
+		return getMenu(player).isInventory(inv);
+	}
+	public static void onClick(Player player, int slot)
+	{
+		getMenu(player).slotClick(slot);
 	}
 	
-	// getMenu() returns the menu for a given player that is currently active at the time.
-	//   it is good practive to check if the menu is active before trying any of these.
-	public Menu getMenu(Player player){return active_menus.get(player);}
-	public Menu getMenu(Inventory inv)
+	
+	public static class Menu
 	{
-		List<Menu> menus = new ArrayList<Menu>();
-		menus.addAll(active_menus.values());
-		for(int i = 0; i < menus.size(); i++)
+		private String player_name;
+		private Inventory inventory;
+		
+		HashMap<Integer, Option> options = new HashMap<Integer, Option>();
+		String menu_title = "";
+		
+		private Menu(Player player, int size, String menu_title)
 		{
-			if(menus.get(i).getInventory().equals(inv)) return menus.get(i);
+			player_name = player.getName();
+			this.menu_title = menu_title;
+			inventory = Bukkit.createInventory(null, size, menu_title);
 		}
-		return null;
-	}
-	
-	// isActive() returns a boolean if a menu is currently active.
-	public boolean isActive(Menu menu){return active_menus.containsValue(menu);}
-	public boolean isActive(Inventory inv)
-	{
-		List<Menu> menus = new ArrayList<Menu>();
-		menus.addAll(active_menus.values());
-		for(int i = 0; i < menus.size(); i++)
+		
+		public void addOption(Option opt)
 		{
-			if(menus.get(i).getInventory().equals(inv)) return true;
+			int slot = 0;
+			for(int i = 0; i < inventory.getSize(); i++)
+			{
+				if(!options.containsKey(i))
+				{
+					slot = i;
+					break;
+				}
+			}
+			options.put(slot, opt);
 		}
-		return false;
+		
+		public void addOption(Option opt, int slot)
+		{
+			options.put(slot, opt);
+		}
+		public void removeOptions()
+		{
+			options.clear();
+		}
+		
+		public Player getPlayer()
+		{
+			return Bukkit.getPlayer(player_name);
+		}
+		private boolean isInventory(Inventory inv)
+		{
+			return this.inventory.equals(inv);
+		}
+		public void updateInventory()
+		{
+			inventory.clear();
+			for(int i = 0; i < inventory.getSize(); i++)
+			{
+				if(options.containsKey(i))
+				{
+					inventory.setItem(i, options.get(i).generateDisplayItem());
+				}
+			}
+		}
+		public void openInventory()
+		{
+			updateInventory();
+			Bukkit.getPlayer(player_name).openInventory(this.inventory);
+		}
+		private void slotClick(int slot)
+		{
+			if(!options.containsKey(slot)) return;
+			options.get(slot).onClick(getPlayer());
+		}
+		
+		
+		
 	}
-	// hasActiveMenu() returns a boolean if the player has an active menu.
-	public boolean hasActiveMenu(Player player){return active_menus.containsKey(player);}
-	
 }

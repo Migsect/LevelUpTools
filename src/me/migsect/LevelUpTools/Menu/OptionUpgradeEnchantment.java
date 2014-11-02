@@ -1,26 +1,60 @@
 package me.migsect.LevelUpTools.Menu;
 
+import java.util.List;
+
+import me.migsect.LevelUpTools.Helper;
+import me.migsect.LevelUpTools.Menu.MenuHandler.Menu;
+import me.migsect.LevelUpTools.Tools.DataManager;
+import me.migsect.LevelUpTools.Tools.ItemInfo;
+
+import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
-import me.migsect.LevelUpTools.Player.LUTPlayer;
-
-public class OptionUpgradeEnchantment extends Option {
-
+public class OptionUpgradeEnchantment extends Option 
+{
+	private Enchantment ench;
 	
-	@SuppressWarnings("unused")
-	private Enchantment ench_type;
-	
-	public OptionUpgradeEnchantment(Enchantment ench_type)
+	public OptionUpgradeEnchantment(Enchantment ench, ItemStack item)
 	{
-		this.ench_type = ench_type;
+		this.ench = ench;
+		
+		ItemInfo info = new ItemInfo(item);
+		int cur_exp = info.getExperience();
+		int upgrd_cost = info.getEnchantmentCost(ench);
+		
+		if(cur_exp > upgrd_cost) this.display_lore.add(ChatColor.GOLD + "Experience Cost: " + ChatColor.YELLOW + upgrd_cost);
+		else this.display_lore.add(ChatColor.GOLD + "Experience Cost: " + ChatColor.RED + upgrd_cost);
 	}
-
 	
 	@Override
-	public void onClick(LUTPlayer player) {
+	public void onClick(Player player)
+	{
+		ItemStack item = player.getItemInHand();
+		ItemInfo info = new ItemInfo(item);
+		int cur_exp = info.getExperience();
+		int upgrd_cost = info.getEnchantmentCost(ench);
+		if(cur_exp < upgrd_cost) return;
+		info.addExperience(-upgrd_cost);
+		info.upgradeEnchantment(ench);
+		player.updateInventory();
 		
-		// Code to change the item
-		
+		Menu menu = MenuHandler.getMenu(player);
+		menu.removeOptions();
+		List<Enchantment> enchants = DataManager.getToolEnchants(Helper.getToolType(item.getType()));
+		for(Enchantment e : enchants)
+		{
+			OptionUpgradeEnchantment option = new OptionUpgradeEnchantment(e, item);
+			String numeral = Helper.intToNumeral(info.getEnchantmentLevel(e) + 1);
+			option.setDisplayName(DataManager.getEnchantmentDisplayName(e) + " " + numeral);
+			option.setDisplayMaterial(DataManager.getEnchantmentDisplayMaterial(e));
+			option.setDisplayDurability(DataManager.getEnchantmentDisplayDurability(e));
+			option.setDisplayAmount(DataManager.getEnchantmentDisplayAmount(e));
+			option.addDisplayLore(DataManager.getEnchantmentDisplayLore(e));
+			menu.addOption(option);
+		}
+		menu.updateInventory();
 	}
 
 }

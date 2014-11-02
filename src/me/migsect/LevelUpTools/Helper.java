@@ -3,9 +3,10 @@ package me.migsect.LevelUpTools;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import me.migsect.LevelUpTools.Tools.MaterialInfo;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 public class Helper
 {
 	public static boolean isHoe(Material mat)
@@ -63,7 +64,10 @@ public class Helper
 		if(isSword(mat)) return ToolType.SWORD;
 		return null;
 	}
-	
+	public static boolean isTool(Material mat)
+	{
+		return getToolType(mat) != null;
+	}
 	public enum ToolType
 	{
 		SWORD,
@@ -78,14 +82,14 @@ public class Helper
 		
 		public static ToolType stringToToolType(String str)
 		{
-			if(str.equalsIgnoreCase("SWORD")) return ToolType.SWORD;
-			if(str.equalsIgnoreCase("HOE")) return ToolType.HOE;
-			if(str.equalsIgnoreCase("AXE")) return ToolType.AXE;
-			if(str.equalsIgnoreCase("PICKAXE")) return ToolType.PICKAXE;
-			if(str.equalsIgnoreCase("SPADE")) return ToolType.SPADE;
-			if(str.equalsIgnoreCase("BOW")) return ToolType.BOW;
-			if(str.equalsIgnoreCase("FISHING_ROD")) return ToolType.FISHING_ROD;
-			if(str.equalsIgnoreCase("SHEAR")) return ToolType.SHEAR;
+			if(str.equalsIgnoreCase("sword")) return ToolType.SWORD;
+			if(str.equalsIgnoreCase("hoe")) return ToolType.HOE;
+			if(str.equalsIgnoreCase("axe")) return ToolType.AXE;
+			if(str.equalsIgnoreCase("pickaxe")) return ToolType.PICKAXE;
+			if(str.equalsIgnoreCase("spade")) return ToolType.SPADE;
+			if(str.equalsIgnoreCase("bow")) return ToolType.BOW;
+			if(str.equalsIgnoreCase("fishing_rod")) return ToolType.FISHING_ROD;
+			if(str.equalsIgnoreCase("shear")) return ToolType.SHEAR;
 			return null;
 		}
 	}
@@ -152,6 +156,22 @@ public class Helper
 		
 		return null;
 	}
+	public static String realName(RawMaterial mat, ToolType tool)
+	{
+		String return_str = "";
+		if(mat.equals(RawMaterial.WOOD)) return_str = return_str + "Wood ";
+		if(mat.equals(RawMaterial.STONE)) return_str = return_str + "Stone ";
+		if(mat.equals(RawMaterial.GOLD)) return_str = return_str + "Gold ";
+		if(mat.equals(RawMaterial.IRON)) return_str = return_str + "Iron ";
+		if(mat.equals(RawMaterial.DIAMOND)) return_str = return_str + "Diamond ";
+		
+		if(tool.equals(ToolType.AXE)) return_str = return_str + "Axe";
+		if(tool.equals(ToolType.SPADE)) return_str = return_str + "Shovel";
+		if(tool.equals(ToolType.PICKAXE)) return_str = return_str + "Pickaxe";
+		if(tool.equals(ToolType.SWORD)) return_str = return_str + "Sword";
+		if(tool.equals(ToolType.HOE)) return_str = return_str + "Hoe";
+		return return_str;
+	}
 	
 	public enum RawMaterial
 	{
@@ -186,15 +206,15 @@ public class Helper
 	
 	// returns a list of item stacks of 1 item of the type determined from the string.
 	//  The reason we are return multiple is because some items have multiple variations. (such as a log)
-	public static List<ItemStack> getSimpleItemStack(String str)
+	public static List<MaterialInfo> getMaterialInfo(String str)
 	{
-		List<ItemStack> return_list = new ArrayList<ItemStack>();
+		List<MaterialInfo> return_list = new ArrayList<MaterialInfo>();
 		if(str.equals("OAK_LOG"))
 		{
-			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)0);
-			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)4);
-			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)8);
-			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)12);
+			MaterialInfo item1 = new MaterialInfo(Material.LOG, (short)0);
+			MaterialInfo item2 = new MaterialInfo(Material.LOG, (short)4);
+			MaterialInfo item3 = new MaterialInfo(Material.LOG,  (short)8);
+			MaterialInfo item4 = new MaterialInfo(Material.LOG,  (short)12);
 			return_list.add(item1);
 			return_list.add(item2);
 			return_list.add(item3);
@@ -202,10 +222,10 @@ public class Helper
 		}
 		else if(str.equals("SPRUCE_LOG"))
 		{
-			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)1);
-			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)5);
-			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)9);
-			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)13);
+			MaterialInfo item1 = new MaterialInfo(Material.LOG,  (short)1);
+			MaterialInfo item2 = new MaterialInfo(Material.LOG,  (short)5);
+			MaterialInfo item3 = new MaterialInfo(Material.LOG,  (short)9);
+			MaterialInfo item4 = new MaterialInfo(Material.LOG,  (short)13);
 			return_list.add(item1);
 			return_list.add(item2);
 			return_list.add(item3);
@@ -213,10 +233,10 @@ public class Helper
 		}
 		else if(str.equals("BIRCH_LOG"))
 		{
-			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)2);
-			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)6);
-			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)10);
-			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)14);
+			MaterialInfo item1 = new MaterialInfo(Material.LOG, (short)2);
+			MaterialInfo item2 = new MaterialInfo(Material.LOG, (short)6);
+			MaterialInfo item3 = new MaterialInfo(Material.LOG, (short)10);
+			MaterialInfo item4 = new MaterialInfo(Material.LOG, (short)14);
 			return_list.add(item1);
 			return_list.add(item2);
 			return_list.add(item3);
@@ -225,10 +245,10 @@ public class Helper
 		}
 		else if(str.equals("JUNGLE_LOG"))
 		{
-			ItemStack item1 = new ItemStack(Material.LOG, 1, (short)3);
-			ItemStack item2 = new ItemStack(Material.LOG, 1, (short)7);
-			ItemStack item3 = new ItemStack(Material.LOG, 1, (short)11);
-			ItemStack item4 = new ItemStack(Material.LOG, 1, (short)15);
+			MaterialInfo item1 = new MaterialInfo(Material.LOG, (short)3);
+			MaterialInfo item2 = new MaterialInfo(Material.LOG, (short)7);
+			MaterialInfo item3 = new MaterialInfo(Material.LOG, (short)11);
+			MaterialInfo item4 = new MaterialInfo(Material.LOG, (short)15);
 			return_list.add(item1);
 			return_list.add(item2);
 			return_list.add(item3);
@@ -237,10 +257,10 @@ public class Helper
 		}
 		else if(str.equals("ACACIA_LOG"))
 		{
-			ItemStack item1 = new ItemStack(Material.LOG_2, 1, (short)0);
-			ItemStack item2 = new ItemStack(Material.LOG_2, 1, (short)4);
-			ItemStack item3 = new ItemStack(Material.LOG_2, 1, (short)8);
-			ItemStack item4 = new ItemStack(Material.LOG_2, 1, (short)12);
+			MaterialInfo item1 = new MaterialInfo(Material.LOG_2, (short)0);
+			MaterialInfo item2 = new MaterialInfo(Material.LOG_2, (short)4);
+			MaterialInfo item3 = new MaterialInfo(Material.LOG_2, (short)8);
+			MaterialInfo item4 = new MaterialInfo(Material.LOG_2, (short)12);
 			return_list.add(item1);
 			return_list.add(item2);
 			return_list.add(item3);
@@ -249,10 +269,10 @@ public class Helper
 		}
 		else if(str.equals("DARK_OAK_LOG"))
 		{
-			ItemStack item1 = new ItemStack(Material.LOG_2, 1, (short)1);
-			ItemStack item2 = new ItemStack(Material.LOG_2, 1, (short)5);
-			ItemStack item3 = new ItemStack(Material.LOG_2, 1, (short)9);
-			ItemStack item4 = new ItemStack(Material.LOG_2, 1, (short)13);
+			MaterialInfo item1 = new MaterialInfo(Material.LOG_2, (short)1);
+			MaterialInfo item2 = new MaterialInfo(Material.LOG_2, (short)5);
+			MaterialInfo item3 = new MaterialInfo(Material.LOG_2, (short)9);
+			MaterialInfo item4 = new MaterialInfo(Material.LOG_2, (short)13);
 			return_list.add(item1);
 			return_list.add(item2);
 			return_list.add(item3);
@@ -262,11 +282,212 @@ public class Helper
 		else
 		{
 			Material mat = Material.getMaterial(str);
-			if(mat.equals(null)) return return_list;
-			ItemStack item = new ItemStack(mat, 1);
+			if(mat == null) return return_list;
+			MaterialInfo item = new MaterialInfo(mat);
 			return_list.add(item);
 		}
 		
 		return return_list;
 	}
+	
+	public static int numeralToInt(String numeral)
+	{
+		int sum = 0;
+		// looping through the string.
+		int max = 0;
+		for(int c = numeral.length(); c >= 0; c--)
+		{
+			int cur_num = numeralVal(numeral.charAt(c));
+			if(cur_num > max)
+			{
+				max = cur_num;
+				sum += cur_num;
+			}
+			else if(cur_num < max)
+			{
+				sum -= cur_num;
+			}
+			else
+			{
+				sum += cur_num;
+			}
+		}
+		return sum;
+	}
+	private static int numeralVal(char numeral)
+	{
+		switch(numeral)
+		{
+			case 'I':
+				return 1;
+			case 'V':
+				return 5;
+			case 'X':
+				return 10;
+			case 'L':
+				return 50;
+			case 'C':
+				return 100;
+			case 'D':
+				return 500;
+			case 'M':
+				return 1000;
+		}
+		return 0;
+	}
+	public static String intToNumeral(int number)
+	{
+		String numeral = "";
+		while(number > 0)
+		{
+			if(number >= 1000)
+			{
+				number -= 1000;
+				numeral = numeral + "M";
+			}
+			else if(number >= 900)
+			{
+				number -= 900;
+				numeral = numeral + "CM";
+			}
+			else if(number >= 500)
+			{
+				number -= 500;
+				numeral = numeral + "D";
+			}
+			else if(number >= 400)
+			{
+				number -= 400;
+				numeral = numeral + "DC";
+			}
+			else if(number >= 100)
+			{
+				number -= 100;
+				numeral = numeral + "C";
+			}
+			else if(number >= 90)
+			{
+				number -= 90;
+				numeral = numeral + "XC";
+			}
+			else if(number >= 50)
+			{
+				number -= 50;
+				numeral = numeral + "L";
+			}
+			else if(number >= 40)
+			{
+				number -= 40;
+				numeral = numeral + "XL";
+			}
+			else if(number >= 10)
+			{
+				number -= 10;
+				numeral = numeral + "X";
+			}
+			else if(number >= 9)
+			{
+				number -= 9;
+				numeral = numeral + "IX";
+			}
+			else if(number >= 5)
+			{
+				number -= 5;
+				numeral = numeral + "V";
+			}
+			else if(number >= 4)
+			{
+				number -= 4;
+				numeral = numeral + "IV";
+			}
+			else if(number >= 1)
+			{
+				number -= 1;
+				numeral = numeral + "I";
+			}
+			if(number < 0) return "ERROR";
+		}
+		return numeral;
+	}
+	public static boolean isNumeral(String numeral)
+	{
+		return numeralToInt(numeral) != 0;
+	}
+	public static boolean isNumeric(String str)
+	{
+		try
+		{
+			Integer.parseInt(str);
+			return true; // if it errors, then the return will never return
+		} 
+		catch (NumberFormatException e) {}
+		try
+		{
+			Double.parseDouble(str);
+			return true;
+		}
+		catch (NumberFormatException e) {}
+		return isNumeral(str);
+	}
+	
+	public static String formatString(String string)
+	{
+		String newString = string;
+		
+		newString = newString.replace("&0", "" + ChatColor.BLACK);
+		newString = newString.replace("&1", "" + ChatColor.DARK_BLUE);
+		newString = newString.replace("&2", "" + ChatColor.DARK_GREEN);
+		newString = newString.replace("&3", "" + ChatColor.DARK_AQUA);
+		newString = newString.replace("&4", "" + ChatColor.DARK_RED);
+		newString = newString.replace("&5", "" + ChatColor.DARK_PURPLE);
+		newString = newString.replace("&6", "" + ChatColor.GOLD);
+		newString = newString.replace("&7", "" + ChatColor.GRAY);
+		newString = newString.replace("&8", "" + ChatColor.DARK_GRAY);
+		newString = newString.replace("&9", "" + ChatColor.BLUE);
+		newString = newString.replace("&a", "" + ChatColor.GREEN);
+		newString = newString.replace("&b", "" + ChatColor.AQUA);
+		newString = newString.replace("&c", "" + ChatColor.RED);
+		newString = newString.replace("&d", "" + ChatColor.LIGHT_PURPLE);
+		newString = newString.replace("&e", "" + ChatColor.YELLOW);
+		newString = newString.replace("&f", "" + ChatColor.WHITE);
+		
+		newString = newString.replace("&k", "" + ChatColor.MAGIC);
+		newString = newString.replace("&l", "" + ChatColor.BOLD);
+		newString = newString.replace("&m", "" + ChatColor.STRIKETHROUGH);
+		newString = newString.replace("&n", "" + ChatColor.UNDERLINE);
+		newString = newString.replace("&o", "" + ChatColor.ITALIC);
+		newString = newString.replace("&p", "" + ChatColor.RESET);
+		
+		
+		return newString;
+	}
+	public static List<String> formatString(List<String> list)
+	{
+		for(int i = 0 ; i < list.size(); i++)
+		{
+			list.set(i, formatString(list.get(i)));
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

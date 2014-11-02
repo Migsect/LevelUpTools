@@ -2,10 +2,14 @@ package me.migsect.LevelUpTools;
 
 import java.util.logging.Logger;
 
+import me.migsect.LevelUpTools.Listeners.BreakListener;
+import me.migsect.LevelUpTools.Listeners.EnchantListener;
+import me.migsect.LevelUpTools.Listeners.MenuListener;
 import me.migsect.LevelUpTools.Menu.MenuHandler;
 import me.migsect.LevelUpTools.Tools.DataManager;
 
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LevelUpTools extends JavaPlugin
@@ -30,6 +34,12 @@ public class LevelUpTools extends JavaPlugin
 		// Data Handling
 		//   The constructor handles the parsing.
 		dm = new DataManager(this);
+		
+		// EventHandler
+		PluginManager pm = this.getServer().getPluginManager();
+		pm.registerEvents(new EnchantListener(), this);
+		pm.registerEvents(new BreakListener(), this);
+		pm.registerEvents(new MenuListener(), this);
 	}
 	
 	@Override
