@@ -1,6 +1,13 @@
 package me.migsect.LevelUpTools.Tools;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,13 +16,15 @@ import me.migsect.LevelUpTools.Helper.ToolType;
 import me.migsect.LevelUpTools.Helper;
 import me.migsect.LevelUpTools.LevelUpTools;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 // Used to better access information stored in the config file and .dat files.
 //   handles reading and writing to files (such as the data file).
 public class DataManager
 {
-	static private LevelUpTools plugin;
+  private static LevelUpTools plugin;
 	
 	// This map stores the exp_cost_mod that each material has for its upgrades.
 	private static HashMap<RawMaterial, Double> exp_cost_mod = new HashMap<RawMaterial, Double>();
@@ -59,6 +68,13 @@ public class DataManager
 	private static HashMap<Enchantment, Integer> display_amounts = new HashMap<Enchantment, Integer>();
 	private static HashMap<Enchantment, List<String>> display_lores = new HashMap<Enchantment, List<String>>();
 	
+	// formatting
+	private static HashMap<Integer, String> level_formatting = new HashMap<Integer, String>();
+	
+	// BrokenBlock storage area.
+	private static List<BlockPlaceData> block_places = new ArrayList<BlockPlaceData>();
+	
+	// Constructor, only needs to be called once.
 	public DataManager(LevelUpTools plugin)
 	{
 		DataManager.plugin = plugin;
@@ -70,8 +86,12 @@ public class DataManager
 		}
 		
 		parseConfig();
+		loadData();
 	}
-	
+	public static LevelUpTools getPlugin()
+	{
+		return plugin;
+	}
 	public static double getEnchantmentCostModifier()
 	{
 		return uni_cost_increase;
@@ -110,6 +130,14 @@ public class DataManager
 		if(!tool_exp_gains.get(tool).containsKey(mat_info.toString())) return 0;
 		return tool_exp_gains.get(tool).get(mat_info.toString());
 	}
+	public static boolean hasExperienceAward(MaterialInfo mat_info)
+	{
+		for(ToolType type : tool_exp_gains.keySet())
+		{
+			if(tool_exp_gains.get(type).containsKey(mat_info.toString())) return true;
+		}
+		return false;
+	}
 	public static boolean doSafeEnchants()
 	{
 		return force_safe_ench;
@@ -133,9 +161,89 @@ public class DataManager
 	public static int getEnchantmentDisplayAmount(Enchantment ench){ return display_amounts.get(ench);}
 	public static List<String> getEnchantmentDisplayLore(Enchantment ench){ return display_lores.get(ench);}
 	
-	public void parseData()
+	public static String getFormat(int experience)
 	{
-		
+		int tier = 0;
+		for(int value : level_formatting.keySet())
+		{
+			if(experience > value) tier = value;
+		}
+		return level_formatting.get(tier);
+	}
+	
+	public static void addBlockPlace(Location loc)
+	{
+		Date time = new Date();
+		block_places.add(new BlockPlaceData(loc, time));
+	}
+	// If we want to remove a broken block
+	public static void removeBlockPlace(Location loc)
+	{
+		for(int i = 0 ; i < block_places.size(); i++)
+		{
+			if(loc.getBlockX() == block_places.get(i).getLocation().getBlockX() &&
+					loc.getBlockZ() == block_places.get(i).getLocation().getBlockZ() &&
+					loc.getBlockY() == block_places.get(i).getLocation().getBlockY() &&
+					loc.getWorld().getName().equals(block_places.get(i).getLocation().getWorld().getName())) block_places.remove(i);
+		}
+	}
+	// Will actually do more than one thing.  It will first check the last element of the list
+	//   and remove it if it is past its time.  It will then remove it.  This ensures that we don't go above our limits.
+	//   if we are using too much data we will have to do a save/load for every check which may be processor costly
+	public static boolean isPlaced(Location loc)
+	{
+		if(!check_if_placed) return false;
+		// plugin.logger.info("Testing block at " + loc.toString());
+		if(block_places.size() > 0)
+		{
+			BlockPlaceData data = block_places.get(0);
+			Date cur_time = new Date();
+			if((cur_time.getTime() - data.getTime().getTime())/1000 > plugin.getConfig().getInt("Check-Duration-Seconds"))
+			{
+				// plugin.logger.info("Removing Block becuase of time difference:" + (cur_time.getTime() - data.getTime().getTime())/1000);
+				block_places.remove(0);
+			}
+		}
+		// we need to do a loop here, which is O(n) but not all that bad.
+		for(BlockPlaceData d : block_places)
+		{
+			//plugin.logger.info(d.getLocation().getBlockX() + " : " + d.getLocation().getBlockY() + " : " + d.getLocation().getBlockZ() + " - " + 
+			//		loc.getBlockX() + " : " + loc.getBlockY() + " : " + loc.getBlockZ());
+			
+			if(loc.getBlockX() == d.getLocation().getBlockX() &&
+					loc.getBlockZ() == d.getLocation().getBlockZ() &&
+					loc.getBlockY() == d.getLocation().getBlockY() &&
+					loc.getWorld().getName().equals(d.getLocation().getWorld().getName())) return true;
+		}
+		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void loadData()
+	{
+		try {
+			FileInputStream fileIn = new FileInputStream(plugin.getDataFolder() + "/placed_blocks.dat");
+      ObjectInputStream in = new ObjectInputStream(fileIn);
+      block_places = (List<BlockPlaceData>) in.readObject();
+	    in.close();
+	    fileIn.close();
+	  }
+	  catch(Exception e) {}
+	}
+	public static void saveData()
+	{
+		try
+		{
+			FileOutputStream fileOut = new FileOutputStream(plugin.getDataFolder() + "/placed_blocks.dat");
+      ObjectOutputStream out = new ObjectOutputStream(fileOut);
+      out.writeObject(block_places);
+      out.close();
+      fileOut.close();
+		}
+		catch(IOException i)
+		{
+			i.printStackTrace();
+		}
 	}
 	
 	public void parseConfig()
@@ -246,5 +354,54 @@ public class DataManager
 				}
 			}
 		}
+		current_keys.clear();
+		
+		// Color Codes
+		current_keys.addAll(plugin.getConfig().getConfigurationSection("Experience-Formatting").getKeys(false));
+		for(int i = 0 ; i < current_keys.size(); i++)
+		{
+			int exp_val = 0;
+			try
+			{
+				exp_val = Integer.parseInt(current_keys.get(i));
+			}
+			catch (NumberFormatException e)
+			{
+				plugin.logger.warning("In Config: " + current_keys.get(i) + " is not a number.");
+				continue;
+			}
+			// plugin.logger.info("Found: " + current_keys.get(i) + " converted to: " + exp_val + " with inside: " + plugin.getConfig().getString("Experience-Formatting." + current_keys.get(i)));
+			level_formatting.put(exp_val, Helper.formatString(plugin.getConfig().getString("Experience-Formatting." + current_keys.get(i))));
+		}
+	}
+	
+	public static class BlockPlaceData implements Serializable
+	{
+		private static final long serialVersionUID = -2785209452443044418L;
+		private int x;
+		private int y;
+		private int z;
+		private String world;
+		
+		private long time;
+		
+		private BlockPlaceData(Location loc, Date time)
+		{
+			world = loc.getWorld().getName();
+			this.time = time.getTime();
+			
+			x = loc.getBlockX();
+			y = loc.getBlockY();
+			z = loc.getBlockZ();
+		}
+		public Location getLocation()
+		{
+			return new Location(Bukkit.getWorld(world), x, y, z);
+		}
+		public Date getTime()
+		{
+			return new Date(time);
+		}
+		
 	}
 }

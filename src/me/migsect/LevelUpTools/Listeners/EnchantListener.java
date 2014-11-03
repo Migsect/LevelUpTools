@@ -12,6 +12,7 @@ import me.migsect.LevelUpTools.Tools.ItemInfo;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -30,6 +31,8 @@ public class EnchantListener implements Listener
 		Player player = event.getPlayer();
 		Action action = event.getAction();
 		ItemStack item = event.getItem();
+
+		if(item == null) return;
 		ItemInfo info = new ItemInfo(item);
 
 		// our requirement for table clicking is that the player needs to be RCing the table as well as sneaking.
@@ -51,6 +54,10 @@ public class EnchantListener implements Listener
 			Menu new_menu = MenuHandler.getNewMenu(player, menu_size, ChatColor.DARK_GRAY + "Enchant Item");
 			for(Enchantment e : enchants)
 			{
+				int max_level = DataManager.getEnchantmentMaxLevel(e);
+				if(max_level == info.getEnchantmentLevel(e)) continue;
+				
+				
 				OptionUpgradeEnchantment option = new OptionUpgradeEnchantment(e, item);
 				String numeral = Helper.intToNumeral(info.getEnchantmentLevel(e) + 1);
 				option.setDisplayName(DataManager.getEnchantmentDisplayName(e) + " " + numeral);
@@ -76,6 +83,9 @@ public class EnchantListener implements Listener
 			info.addExperience(0);
 			player.updateInventory();
 			if(!player.getGameMode().equals(GameMode.CREATIVE)) player.setLevel(player_lvl - level_cost);
+			
+			// Playing the sound:
+			player.playSound(player.getLocation(), Sound.PORTAL_TRAVEL, 1, 1);
 		}
 	}
 }

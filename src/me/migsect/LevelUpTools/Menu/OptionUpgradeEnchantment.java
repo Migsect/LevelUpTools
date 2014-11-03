@@ -8,6 +8,7 @@ import me.migsect.LevelUpTools.Tools.DataManager;
 import me.migsect.LevelUpTools.Tools.ItemInfo;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -39,12 +40,16 @@ public class OptionUpgradeEnchantment extends Option
 		info.addExperience(-upgrd_cost);
 		info.upgradeEnchantment(ench);
 		player.updateInventory();
+		info = new ItemInfo(item);
 		
 		Menu menu = MenuHandler.getMenu(player);
 		menu.removeOptions();
 		List<Enchantment> enchants = DataManager.getToolEnchants(Helper.getToolType(item.getType()));
 		for(Enchantment e : enchants)
 		{
+			int max_level = DataManager.getEnchantmentMaxLevel(e);
+			if(max_level == info.getEnchantmentLevel(e)) continue;
+			
 			OptionUpgradeEnchantment option = new OptionUpgradeEnchantment(e, item);
 			String numeral = Helper.intToNumeral(info.getEnchantmentLevel(e) + 1);
 			option.setDisplayName(DataManager.getEnchantmentDisplayName(e) + " " + numeral);
@@ -55,6 +60,9 @@ public class OptionUpgradeEnchantment extends Option
 			menu.addOption(option);
 		}
 		menu.updateInventory();
+
+		// Playing the sound:
+		player.playSound(player.getLocation(), Sound.SUCCESSFUL_HIT, 1, 1);
 	}
 
 }

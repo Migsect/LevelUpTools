@@ -6,6 +6,7 @@ import java.util.List;
 import me.migsect.LevelUpTools.Tools.MaterialInfo;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 public class Helper
 {
@@ -70,15 +71,26 @@ public class Helper
 	}
 	public enum ToolType
 	{
-		SWORD,
-		HOE,
-		AXE,
-		PICKAXE,
-		SPADE,
-		BOW,
-		FISHING_ROD,
-		SHEAR;
+		SWORD (2),
+		HOE (2),
+		AXE (3),
+		PICKAXE (3),
+		SPADE (1),
+		BOW (3),
+		FISHING_ROD (3),
+		SHEAR (2);
 		
+		private int material_amount = 0;
+		
+		ToolType(int material_amount)
+		{
+			this.material_amount = material_amount;
+		}
+		
+		public int getMaterialAmount()
+		{
+			return this.material_amount;
+		}
 		
 		public static ToolType stringToToolType(String str)
 		{
@@ -470,6 +482,16 @@ public class Helper
 		return list;
 	}
 	
+	public static String userFriendlyLocation(Location loc)
+	{
+		String str = "";
+		str = str + "X: " + loc.getBlockX() + " ";
+		str = str + "Y: " + loc.getBlockY() + " ";
+		str = str + "Z: " + loc.getBlockZ();
+		
+		return str;
+				
+	}
 	
 	
 	

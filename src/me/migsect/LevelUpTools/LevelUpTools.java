@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import me.migsect.LevelUpTools.Listeners.BreakListener;
 import me.migsect.LevelUpTools.Listeners.EnchantListener;
 import me.migsect.LevelUpTools.Listeners.MenuListener;
+import me.migsect.LevelUpTools.Listeners.RepairListener;
 import me.migsect.LevelUpTools.Menu.MenuHandler;
 import me.migsect.LevelUpTools.Tools.DataManager;
 
@@ -38,6 +39,7 @@ public class LevelUpTools extends JavaPlugin
 		// EventHandler
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(new EnchantListener(), this);
+		pm.registerEvents(new RepairListener(), this);
 		pm.registerEvents(new BreakListener(), this);
 		pm.registerEvents(new MenuListener(), this);
 	}
@@ -48,6 +50,9 @@ public class LevelUpTools extends JavaPlugin
 		// Server Log Message
 		PluginDescriptionFile pdf = this.getDescription();
 		this.logger.info(pdf.getName() + " has been disabled");
+		
+		// Data handling
+		DataManager.saveData();
 	}
 	
 	public MenuHandler getMenuHandler(){ return this.menu_handler;}

@@ -123,8 +123,11 @@ public class ItemInfo {
 		}
 		ItemMeta im = item.getItemMeta();
 		im.setLore(new_lore);
-		if(im.hasDisplayName()) im.setDisplayName(ChatColor.BLUE + im.getDisplayName());
-		else im.setDisplayName(ChatColor.BLUE + Helper.realName(Helper.getRawMaterial(item.getType()), Helper.getToolType(item.getType())));
+		
+		String format_head = DataManager.getFormat(this.getTotalExperience());
+		
+		if(im.hasDisplayName()) im.setDisplayName(format_head + ChatColor.stripColor(im.getDisplayName()));
+		else im.setDisplayName(format_head + Helper.realName(Helper.getRawMaterial(item.getType()), Helper.getToolType(item.getType())));
 		
 		item.setItemMeta(im);
 	}
@@ -134,4 +137,36 @@ public class ItemInfo {
 		if(DataManager.doSafeEnchants()) item.addEnchantment(ench, ench_lv + 1);
 		else item.addUnsafeEnchantment(ench, ench_lv + 1); 
 	}
+	
+	public int getTotalExperience()
+	{
+		int sum_exp = 0;
+		
+		// summing the vanilla enchantments
+		for(Enchantment ench : vanilla_enchantments.keySet())
+		{
+			sum_exp += getEnchantmentExperience(ench);
+		}
+		
+		sum_exp += item_exp;
+		return sum_exp;
+	}
+	
+	private int getEnchantmentExperience(Enchantment ench)
+	{
+		int sum_exp = 0;
+		for(int i = 0; i <= getEnchantmentLevel(ench); i++)
+		{
+			int base_cost = DataManager.getEnchantmentBaseCost(ench);
+			double ench_mod = DataManager.getEnchantmentCostModifier(ench);
+			double tool_mod = DataManager.getMatExpCostModifier(Helper.getRawMaterial(item.getType()));
+			
+			sum_exp += base_cost * tool_mod * Math.pow(ench_mod, i);
+		}
+		int pow = getNumberOfEnchantments() - 1;
+		if(pow < 0) pow = 0;
+		sum_exp *= Math.pow(DataManager.getEnchantmentCostModifier(),pow);
+		return sum_exp;
+	}
+	
 }
