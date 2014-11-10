@@ -18,6 +18,8 @@ public class LevelUpTools extends JavaPlugin
 	
 	private MenuHandler menu_handler = new MenuHandler();
 	public final Logger logger = Logger.getLogger("Minecraft");
+	
+	public ConfigAccessor ench_config;
 	public DataManager dm;
 	
 	
@@ -31,6 +33,11 @@ public class LevelUpTools extends JavaPlugin
 		// Config Handling
 		getConfig().options().copyDefaults(true);
 		saveConfig();
+		
+		// Enchantment Configuration stores all the information on enchantments.
+		ench_config = new ConfigAccessor(this, "enchantments.yml");
+		ench_config.getConfig().options().copyDefaults(true);
+		ench_config.saveConfig();
 		
 		// Data Handling
 		//   The constructor handles the parsing.

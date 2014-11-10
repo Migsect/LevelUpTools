@@ -1,0 +1,277 @@
+Vanilla-Enchantments:
+    ARROW_DAMAGE:
+        Display-Name: Power
+        Display-Material: ARROW
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    ARROW_FIRE:
+        Display-Name: Flaming
+        Display-Material: BLAZE_ROD
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    ARROW_INFINITE:
+        Display-Name: Infinity
+        Display-Material: ENDER_PEARL
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    ARROW_KNOCKBACK:
+        Display-Name: Punch
+        Display-Material: SULPHUR
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    DAMAGE_ALL:
+        Display-Name: Sharpness
+        Display-Material: DIAMOND_SWORD
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    DAMAGE_ARTHROPODS:
+        Display-Name: Bane of Arthropods
+        Display-Material: IRON_AXE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    DAMAGE_UNDEAD:
+        Display-Name: Smite
+        Display-Material: GOLD_SWORD
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    DIG_SPEED:
+        Display-Name: Efficiency
+        Display-Material: DIAMOND_PICKAXE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 400
+        Cost-Increase: 1.5
+        Max-Level: 10
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+        Incompatabilities: []
+    DURABILITY:
+        Display-Name: Unbreaking
+        Display-Material: IRON_INGOT
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 500
+        Cost-Increase: 2
+        Max-Level: 5
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+        Incompatabilities: []
+    FIRE_ASPECT:
+        Display-Name: Fire Aspect
+        Display-Material: BLAZE_POWDER
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    KNOCKBACK:
+        Display-Name: Knockback
+        Display-Material: SULPHUR
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+    LOOT_BONUS_BLOCKS:
+        Display-Name: Fortune
+        Display-Material: GOLD_PICKAXE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 500
+        Cost-Increase: 2
+        Max-Level: 3
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+        Incompatabilities: []
+    LOOT_BONUS_MOBS:
+        Display-Name: Looting
+        Display-Material: CHEST
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    LUCK:
+        Display-Name: Luck of the Seas
+        Display-Material: RAW_FISH
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    LURE:
+        Display-Name: Lure
+        Display-Material: FISHING_ROD
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    OXYGEN:
+        Display-Name: Respiration
+        Display-Material: BUCKET
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    PROTECTION_ENVIRONMENTAL:
+        Display-Name: Protection
+        Display-Material: IRON_CHESTPLATE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    PROTECTION_EXPLOSIONS:
+        Display-Name: Blast Protection
+        Display-Material: DIAMOND_CHESTPLATE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    PROTECTION_FALL:
+        Display-Name: Feather Falling
+        Display-Material: LEATHER_BOOTS
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    PROTECTION_FIRE:
+        Display-Name: Fire Protection
+        Display-Material: GOLD_CHESTPLATE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    PROTECTION_PROJECTILE:
+        Display-Name: Projectile Protection
+        Display-Material: LEATHER_CHESTPLATE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    SILK_TOUCH:
+        Display-Name: Silk Touch
+        Display-Material: SHEARS
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 5000
+        Cost-Increase: 2
+        Max-Level: 1
+        Tools:
+         - PICKAXE
+         - SPADE
+         - AXE
+        Incompatabilities: []
+    THORNS:
+        Display-Name: Thorns
+        Display-Material: CACTUS
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+    WATER_WORKER:
+        Display-Name: Aqua Affinity
+        Display-Material: SLIME_BALL
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 0
+        Cost-Increase: 1.0
+        Max-Level: 0
+        Tools: []
+        Incompatabilities: []
+Custom-Enchantments:

@@ -43,17 +43,9 @@ public class DataManager
 	// These values determine price changes for certain enchantments.
 	//   The equation for this (basic per) is initial_cost * uni_cost_increase^cur_level * cost_increase^cur_level
 	private static double uni_cost_increase = 0;
-	private static HashMap<Enchantment, Double> vanilla_cost_increase = new HashMap<Enchantment, Double>();
 	
 	// Enchantment maxes/safety.
 	private static boolean force_safe_ench = false;
-	private static HashMap<Enchantment, Integer> vanilla_max_level = new HashMap<Enchantment, Integer>();
-	
-	// Enchantment base costs:
-	private static HashMap<Enchantment, Integer> vanilla_base_cost = new HashMap<Enchantment, Integer>();
-	
-	// Tool Type Enchantments
-	private static HashMap<ToolType, List<Enchantment>> vanilla_tool_enchant = new HashMap<ToolType, List<Enchantment>>();
 	
 	// Tool Block Gains
 	private static HashMap<ToolType, HashMap<String, Integer>> tool_exp_gains = new HashMap<ToolType, HashMap<String, Integer>>();
@@ -61,12 +53,10 @@ public class DataManager
 	// Do Placed Check
 	private static boolean check_if_placed = true;
 	
-	// Menu-Displays
-	private static HashMap<Enchantment, String> display_names = new HashMap<Enchantment, String>();
-	private static HashMap<Enchantment, Material> display_materials = new HashMap<Enchantment, Material>();
-	private static HashMap<Enchantment, Short> display_durabilities = new HashMap<Enchantment, Short>();
-	private static HashMap<Enchantment, Integer> display_amounts = new HashMap<Enchantment, Integer>();
-	private static HashMap<Enchantment, List<String>> display_lores = new HashMap<Enchantment, List<String>>();
+	// EnchantmentInformation
+	private static HashMap<String, EnchantmentInfo> enchantments = new HashMap<String, EnchantmentInfo>();
+	// Tool Enchants
+	private static HashMap<ToolType, List<EnchantmentInfo>> tool_enchants = new HashMap<ToolType, List<EnchantmentInfo>>();
 	
 	// formatting
 	private static HashMap<Integer, String> level_formatting = new HashMap<Integer, String>();
@@ -81,49 +71,34 @@ public class DataManager
 		for(ToolType c : ToolType.values())
 		{
 			// plugin.logger.info(c.toString() + " placed.");
-			vanilla_tool_enchant.put(c, new ArrayList<Enchantment>());
+			tool_enchants.put(c, new ArrayList<EnchantmentInfo>());
 			tool_exp_gains.put(c, new HashMap<String, Integer>());
 		}
 		
 		parseConfig();
 		loadData();
 	}
-	public static LevelUpTools getPlugin()
-	{
-		return plugin;
-	}
-	public static double getEnchantmentCostModifier()
-	{
-		return uni_cost_increase;
-	}
-	public static double getEnchantmentCostModifier(Enchantment ench)
-	{
-		return vanilla_cost_increase.get(ench);
-	}
-	public static double getMatExpCostModifier(RawMaterial mat)
-	{
-		return exp_cost_mod.get(mat);
-	}
-	public static int getInitialLevelCost(RawMaterial mat)
-	{
-		return init_level_cost.get(mat);
-	}
-	public static double getRepairRatio(RawMaterial mat)
-	{
-		return repair_ratio.get(mat);
-	}
-	public static List<Enchantment> getToolEnchants(ToolType tool)
-	{
-		return vanilla_tool_enchant.get(tool);
-	}
-	public static int getEnchantmentBaseCost(Enchantment ench)
-	{	
-		return vanilla_base_cost.get(ench);
-	}
-	public static int getEnchantmentMaxLevel(Enchantment ench)
-	{
-		return vanilla_max_level.get(ench);
-	}
+	public static LevelUpTools getPlugin(){return plugin;}
+	
+	public static double getEnchantmentCostModifier(){return uni_cost_increase;}
+	
+	public static double getEnchantmentCostModifier(String raw_name){return enchantments.get(raw_name).getCostIncrease();}
+	public static double getEnchantmentCostModifier(Enchantment ench){return getEnchantmentCostModifier(ench.toString());}
+	
+	public static double getMatExpCostModifier(RawMaterial mat){return exp_cost_mod.get(mat);}
+	
+	public static int getInitialLevelCost(RawMaterial mat){return init_level_cost.get(mat);}
+	
+	public static double getRepairRatio(RawMaterial mat){return repair_ratio.get(mat);}
+	
+	public static List<EnchantmentInfo> getToolEnchants(ToolType tool){return tool_enchants.get(tool);}
+	
+	public static int getEnchantmentBaseCost(String raw_name){return enchantments.get(raw_name).getBaseCost();}
+	public static int getEnchantmentBaseCost(Enchantment ench){return getEnchantmentBaseCost(ench.toString());}
+	
+	public static int getEnchantmentMaxLevel(String raw_name){return enchantments.get(raw_name).getMaxLevel();}
+	public static int getEnchantmentMaxLevel(Enchantment ench){return getEnchantmentMaxLevel(ench.toString());}
+	
 	public static int getExperienceAward(ToolType tool, MaterialInfo mat_info)
 	{
 		if(!tool_exp_gains.containsKey(tool)) return 0;
@@ -138,29 +113,21 @@ public class DataManager
 		}
 		return false;
 	}
-	public static boolean doSafeEnchants()
-	{
-		return force_safe_ench;
-	}
-	public static boolean doCheckIfPlaced()
-	{
-		return check_if_placed;
-	}
-	public static List<ToolType> getLevelableTypes()
-	{
-		return levelable_types;
-	}
-	public static boolean canBeLeveled(ToolType type)
-	{
-		return levelable_types.contains(type);
-	}
+	public static boolean doSafeEnchants(){return force_safe_ench;}
+	public static boolean doCheckIfPlaced(){return check_if_placed;}
+	public static List<ToolType> getLevelableTypes(){return levelable_types;}
+	public static boolean canBeLeveled(ToolType type){return levelable_types.contains(type);}
 	
-	public static String getEnchantmentDisplayName(Enchantment ench){ return display_names.get(ench);}
-	public static Material getEnchantmentDisplayMaterial(Enchantment ench){ return display_materials.get(ench);}
-	public static short getEnchantmentDisplayDurability(Enchantment ench){ return display_durabilities.get(ench);}
-	public static int getEnchantmentDisplayAmount(Enchantment ench){ return display_amounts.get(ench);}
-	public static List<String> getEnchantmentDisplayLore(Enchantment ench){ return display_lores.get(ench);}
-	
+	public static EnchantmentInfo getEnchantmentInfo(Enchantment ench){return enchantments.get(ench.toString());}
+	public static EnchantmentInfo getEnchantmentInfo(String raw_name){return enchantments.get(raw_name);}
+	public static String getRawName(String display_name)
+	{
+		for(EnchantmentInfo e : enchantments.values())
+		{
+			if(e.getDisplayName().equals(display_name)) return e.getRawName();
+		}
+		return null;
+	}
 	public static String getFormat(int experience)
 	{
 		int tier = 0;
@@ -291,30 +258,30 @@ public class DataManager
 		// Cost-Increase to uni_cost_increase
 		uni_cost_increase = plugin.getConfig().getDouble("Cost-Increase");
 		// All enchantment information
-		current_keys.addAll(plugin.getConfig().getConfigurationSection("Vanilla-Enchantments").getKeys(false));
+		current_keys.addAll(plugin.ench_config.getConfig().getConfigurationSection("Vanilla-Enchantments").getKeys(false));
 		for(int i = 0 ; i < current_keys.size(); i++)
 		{
 			Enchantment ench = Enchantment.getByName(current_keys.get(i));
 			if(ench.equals(null))
 			{
-				plugin.logger.warning("In Config: " + current_keys.get(i) + " is not an enchantment.");
+				plugin.logger.warning("In Config: " + current_keys.get(i) + " is not a vanilla enchantment.");
 				continue;
 			}
+			EnchantmentInfo e_info = new EnchantmentInfo(ench);
+			e_info.setBaseCost(plugin.ench_config.getConfig().getInt("Vanilla-Enchantments." + current_keys.get(i) + ".Upgrade-Cost"));
+			e_info.setMaxLevel(plugin.ench_config.getConfig().getInt("Vanilla-Enchantments." + current_keys.get(i) + ".Max-Level"));
+			e_info.setCostIncrease(plugin.ench_config.getConfig().getDouble("Vanilla-Enchantments." + current_keys.get(i) + ".Cost-Increase"));
 			
-			vanilla_max_level.put(Enchantment.getByName(current_keys.get(i)), plugin.getConfig().getInt("Vanilla-Enchantments." + current_keys.get(i) + ".Max-Level"));
-			vanilla_base_cost.put(Enchantment.getByName(current_keys.get(i)), plugin.getConfig().getInt("Vanilla-Enchantments." + current_keys.get(i) + ".Upgrade-Cost"));
-			vanilla_cost_increase.put(Enchantment.getByName(current_keys.get(i)), plugin.getConfig().getDouble("Vanilla-Enchantments." + current_keys.get(i) + ".Cost-Increase"));
 			List<String> acceptable_tools = plugin.getConfig().getStringList("Vanilla-Enchantments." + current_keys.get(i) + ".Tools");
 			for(int c = 0 ; c < acceptable_tools.size(); c++)
 			{
-				// plugin.logger.info("Enchantment Added: " + ench.getName() + " of tool: " + acceptable_tools.get(c));
 				ToolType tool = ToolType.stringToToolType(acceptable_tools.get(c));
 				if(tool.equals(null))
 				{
 					plugin.logger.warning("In Config: " + acceptable_tools.get(c) + " is not an tool.");
 					continue;
 				}
-				vanilla_tool_enchant.get(tool).add(ench);
+				tool_enchants.get(tool).add(e_ench);
 			}
 			
 			// Display stuff
