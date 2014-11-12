@@ -8,7 +8,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class EnchantmentInfo
+
+/* CLASS ItemEnchantment
+ * Purpose:  To easily store information about enchantments/custom-enchantments
+ *   
+ */
+public class ItemEnchantment
 {	
 	
 	// Descriptor information
@@ -24,21 +29,22 @@ public class EnchantmentInfo
 	
 	// Function Information
 	private List<String> incompat = new ArrayList<String>();
+	private HashMap<ItemType, HashMap<String, Integer>> dependencies = new HashMap<ItemType, HashMap<String, Integer>>();
 	private int base_cost = 0;
 	private int max_level = 0;
 	private double cost_increase = 0.0;
 	
-	public EnchantmentInfo(Enchantment ench)
+	public ItemEnchantment(Enchantment ench)
 	{
 		this.raw_name = ench.toString();
 		this.is_custom = false;
 	}
-	public EnchantmentInfo(String ench)
+	public ItemEnchantment(String ench)
 	{
 		this.raw_name = ench;
 		this.is_custom = true;
 	}
-	public EnchantmentInfo(String raw_name, boolean is_custom)
+	public ItemEnchantment(String raw_name, boolean is_custom)
 	{
 		this.raw_name = raw_name;
 		this.is_custom = is_custom;

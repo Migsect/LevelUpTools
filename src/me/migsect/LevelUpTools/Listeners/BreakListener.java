@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.migsect.LevelUpTools.Helper;
-import me.migsect.LevelUpTools.Helper.ToolType;
+import me.migsect.LevelUpTools.Helper.ItemType;
 import me.migsect.LevelUpTools.Tools.DataManager;
 import me.migsect.LevelUpTools.Tools.ItemInfo;
 import me.migsect.LevelUpTools.Tools.MaterialInfo;
@@ -45,7 +45,7 @@ public class BreakListener implements Listener
 		ItemInfo info = new ItemInfo(item_in_hand);
 		if(!info.isLeveled()) return;
 		//player.sendMessage("1. Passed check");
-		ToolType type = Helper.getToolType(item_in_hand.getType());
+		ItemType type = Helper.getToolType(item_in_hand.getType());
 		
 		MaterialInfo mat_info = new MaterialInfo(block);
 		//player.sendMessage("Info: " + mat_info.toString());

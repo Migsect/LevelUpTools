@@ -56,20 +56,20 @@ public class Helper
 		return false;
 	}
 	
-	public static ToolType getToolType(Material mat)
+	public static ItemType getToolType(Material mat)
 	{
-		if(isSpade(mat)) return ToolType.SPADE;
-		if(isHoe(mat)) return ToolType.HOE;
-		if(isAxe(mat)) return ToolType.AXE;
-		if(isPickaxe(mat)) return ToolType.PICKAXE;
-		if(isSword(mat)) return ToolType.SWORD;
+		if(isSpade(mat)) return ItemType.SPADE;
+		if(isHoe(mat)) return ItemType.HOE;
+		if(isAxe(mat)) return ItemType.AXE;
+		if(isPickaxe(mat)) return ItemType.PICKAXE;
+		if(isSword(mat)) return ItemType.SWORD;
 		return null;
 	}
 	public static boolean isTool(Material mat)
 	{
 		return getToolType(mat) != null;
 	}
-	public enum ToolType
+	public enum ItemType
 	{
 		SWORD (2),
 		HOE (2),
@@ -78,11 +78,16 @@ public class Helper
 		SPADE (1),
 		BOW (3),
 		FISHING_ROD (3),
-		SHEAR (2);
+		SHEAR (2),
+		
+		HELMET (5),
+		CHESTPLATE (8),
+		LEGGINGS (7),
+		BOOTS (4);
 		
 		private int material_amount = 0;
 		
-		ToolType(int material_amount)
+		ItemType(int material_amount)
 		{
 			this.material_amount = material_amount;
 		}
@@ -92,16 +97,22 @@ public class Helper
 			return this.material_amount;
 		}
 		
-		public static ToolType stringToToolType(String str)
+		public static ItemType stringToToolType(String str)
 		{
-			if(str.equalsIgnoreCase("sword")) return ToolType.SWORD;
-			if(str.equalsIgnoreCase("hoe")) return ToolType.HOE;
-			if(str.equalsIgnoreCase("axe")) return ToolType.AXE;
-			if(str.equalsIgnoreCase("pickaxe")) return ToolType.PICKAXE;
-			if(str.equalsIgnoreCase("spade")) return ToolType.SPADE;
-			if(str.equalsIgnoreCase("bow")) return ToolType.BOW;
-			if(str.equalsIgnoreCase("fishing_rod")) return ToolType.FISHING_ROD;
-			if(str.equalsIgnoreCase("shear")) return ToolType.SHEAR;
+			if(str.equalsIgnoreCase("sword")) return ItemType.SWORD;
+			if(str.equalsIgnoreCase("hoe")) return ItemType.HOE;
+			if(str.equalsIgnoreCase("axe")) return ItemType.AXE;
+			if(str.equalsIgnoreCase("pickaxe")) return ItemType.PICKAXE;
+			if(str.equalsIgnoreCase("spade")) return ItemType.SPADE;
+			
+			if(str.equalsIgnoreCase("bow")) return ItemType.BOW;
+			if(str.equalsIgnoreCase("fishing_rod")) return ItemType.FISHING_ROD;
+			if(str.equalsIgnoreCase("shear")) return ItemType.SHEAR;
+			
+			if(str.equalsIgnoreCase("helmet")) return ItemType.HELMET;
+			if(str.equalsIgnoreCase("chestplate")) return ItemType.CHESTPLATE;
+			if(str.equalsIgnoreCase("leggings")) return ItemType.LEGGINGS;
+			if(str.equalsIgnoreCase("boots")) return ItemType.BOOTS;
 			return null;
 		}
 	}
@@ -115,6 +126,7 @@ public class Helper
 		if(tool.equals(Material.WOOD_SPADE)) return RawMaterial.WOOD;
 
 		if(tool.equals(Material.BOW)) return RawMaterial.WOOD;
+		if(tool.equals(Material.FISHING_ROD)) return RawMaterial.WOOD;
 
 		if(tool.equals(Material.LEATHER_HELMET)) return RawMaterial.LEATHER;
 		if(tool.equals(Material.LEATHER_CHESTPLATE)) return RawMaterial.LEATHER;
@@ -168,7 +180,7 @@ public class Helper
 		
 		return null;
 	}
-	public static String realName(RawMaterial mat, ToolType tool)
+	public static String realName(RawMaterial mat, ItemType tool)
 	{
 		String return_str = "";
 		if(mat.equals(RawMaterial.WOOD)) return_str = return_str + "Wood ";
@@ -177,11 +189,11 @@ public class Helper
 		if(mat.equals(RawMaterial.IRON)) return_str = return_str + "Iron ";
 		if(mat.equals(RawMaterial.DIAMOND)) return_str = return_str + "Diamond ";
 		
-		if(tool.equals(ToolType.AXE)) return_str = return_str + "Axe";
-		if(tool.equals(ToolType.SPADE)) return_str = return_str + "Shovel";
-		if(tool.equals(ToolType.PICKAXE)) return_str = return_str + "Pickaxe";
-		if(tool.equals(ToolType.SWORD)) return_str = return_str + "Sword";
-		if(tool.equals(ToolType.HOE)) return_str = return_str + "Hoe";
+		if(tool.equals(ItemType.AXE)) return_str = return_str + "Axe";
+		if(tool.equals(ItemType.SPADE)) return_str = return_str + "Shovel";
+		if(tool.equals(ItemType.PICKAXE)) return_str = return_str + "Pickaxe";
+		if(tool.equals(ItemType.SWORD)) return_str = return_str + "Sword";
+		if(tool.equals(ItemType.HOE)) return_str = return_str + "Hoe";
 		return return_str;
 	}
 	
@@ -192,7 +204,8 @@ public class Helper
 		STONE (Material.COBBLESTONE),
 		IRON (Material.IRON_INGOT),
 		GOLD (Material.GOLD_INGOT),
-		DIAMOND (Material.DIAMOND);
+		DIAMOND (Material.DIAMOND),
+		CHAIN (Material.IRON_INGOT);
 		
 		private final Material true_mat;
 		
@@ -206,12 +219,13 @@ public class Helper
 		}
 		public static RawMaterial stringToMat(String str)
 		{
-			if(str.equalsIgnoreCase("WOOD")) return RawMaterial.WOOD;
-			if(str.equalsIgnoreCase("LEATHER")) return RawMaterial.LEATHER;
-			if(str.equalsIgnoreCase("STONE")) return RawMaterial.STONE;
-			if(str.equalsIgnoreCase("GOLD")) return RawMaterial.GOLD;
-			if(str.equalsIgnoreCase("IRON")) return RawMaterial.IRON;
-			if(str.equalsIgnoreCase("DIAMOND")) return RawMaterial.DIAMOND;	
+			if(str.equalsIgnoreCase("wood")) return RawMaterial.WOOD;
+			if(str.equalsIgnoreCase("leather")) return RawMaterial.LEATHER;
+			if(str.equalsIgnoreCase("stone")) return RawMaterial.STONE;
+			if(str.equalsIgnoreCase("chain")) return RawMaterial.CHAIN;
+			if(str.equalsIgnoreCase("gold")) return RawMaterial.GOLD;
+			if(str.equalsIgnoreCase("iron")) return RawMaterial.IRON;
+			if(str.equalsIgnoreCase("diamond")) return RawMaterial.DIAMOND;	
 			return null;
 		}
 	}

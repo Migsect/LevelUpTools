@@ -10,6 +10,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     ARROW_FIRE:
         Display-Name: Flaming
         Display-Material: BLAZE_ROD
@@ -21,6 +22,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     ARROW_INFINITE:
         Display-Name: Infinity
         Display-Material: ENDER_PEARL
@@ -32,6 +34,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     ARROW_KNOCKBACK:
         Display-Name: Punch
         Display-Material: SULPHUR
@@ -43,6 +46,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     DAMAGE_ALL:
         Display-Name: Sharpness
         Display-Material: DIAMOND_SWORD
@@ -54,6 +58,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     DAMAGE_ARTHROPODS:
         Display-Name: Bane of Arthropods
         Display-Material: IRON_AXE
@@ -65,6 +70,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: 
     DAMAGE_UNDEAD:
         Display-Name: Smite
         Display-Material: GOLD_SWORD
@@ -76,6 +82,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: 
     DIG_SPEED:
         Display-Name: Efficiency
         Display-Material: DIAMOND_PICKAXE
@@ -90,20 +97,28 @@ Vanilla-Enchantments:
          - SPADE
          - AXE
         Incompatabilities: []
+        Dependencies: 
     DURABILITY:
         Display-Name: Unbreaking
         Display-Material: IRON_INGOT
         Display-Durability: 0
         Display-Amount: 1
         Display-Lore: []
-        Upgrade-Cost: 500
-        Cost-Increase: 2
+        Upgrade-Cost: 800
+        Cost-Increase: 1.5
         Max-Level: 5
         Tools:
          - PICKAXE
          - SPADE
          - AXE
         Incompatabilities: []
+        Dependencies: 
+            PICKAXE:
+                DIG_SPEED: 2
+            SPADE:
+                DIG_SPEED: 2
+            AXE:
+                DIG_SPEED: 2
     FIRE_ASPECT:
         Display-Name: Fire Aspect
         Display-Material: BLAZE_POWDER
@@ -115,6 +130,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     KNOCKBACK:
         Display-Name: Knockback
         Display-Material: SULPHUR
@@ -125,6 +141,8 @@ Vanilla-Enchantments:
         Cost-Increase: 1.0
         Max-Level: 0
         Tools: []
+        Incompatabilities: []
+        Dependencies: []
     LOOT_BONUS_BLOCKS:
         Display-Name: Fortune
         Display-Material: GOLD_PICKAXE
@@ -139,6 +157,7 @@ Vanilla-Enchantments:
          - SPADE
          - AXE
         Incompatabilities: []
+        Dependencies: []
     LOOT_BONUS_MOBS:
         Display-Name: Looting
         Display-Material: CHEST
@@ -150,6 +169,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     LUCK:
         Display-Name: Luck of the Seas
         Display-Material: RAW_FISH
@@ -161,6 +181,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     LURE:
         Display-Name: Lure
         Display-Material: FISHING_ROD
@@ -172,6 +193,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     OXYGEN:
         Display-Name: Respiration
         Display-Material: BUCKET
@@ -183,6 +205,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     PROTECTION_ENVIRONMENTAL:
         Display-Name: Protection
         Display-Material: IRON_CHESTPLATE
@@ -194,6 +217,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     PROTECTION_EXPLOSIONS:
         Display-Name: Blast Protection
         Display-Material: DIAMOND_CHESTPLATE
@@ -205,6 +229,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     PROTECTION_FALL:
         Display-Name: Feather Falling
         Display-Material: LEATHER_BOOTS
@@ -216,6 +241,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     PROTECTION_FIRE:
         Display-Name: Fire Protection
         Display-Material: GOLD_CHESTPLATE
@@ -227,6 +253,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     PROTECTION_PROJECTILE:
         Display-Name: Projectile Protection
         Display-Material: LEATHER_CHESTPLATE
@@ -238,6 +265,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     SILK_TOUCH:
         Display-Name: Silk Touch
         Display-Material: SHEARS
@@ -252,6 +280,7 @@ Vanilla-Enchantments:
          - SPADE
          - AXE
         Incompatabilities: []
+        Dependencies: []
     THORNS:
         Display-Name: Thorns
         Display-Material: CACTUS
@@ -263,6 +292,7 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
     WATER_WORKER:
         Display-Name: Aqua Affinity
         Display-Material: SLIME_BALL
@@ -274,4 +304,5 @@ Vanilla-Enchantments:
         Max-Level: 0
         Tools: []
         Incompatabilities: []
+        Dependencies: []
 Custom-Enchantments:

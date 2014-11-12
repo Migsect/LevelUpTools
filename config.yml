@@ -1,19 +1,26 @@
 Force-Safe-Enchantments: false
 Experience-Cost-Modifiers:
-    WOOD: 1.0
-    STONE: 1.5
-    GOLD: 0.5
-    IRON: 1.4
-    DIAMOND: 1.2
-Initial-Level-Cost:
-    WOOD: 1
-    STONE: 3
-    GOLD: 5
-    IRON: 5
-    DIAMOND: 15
+    Tool:
+        WOOD: 0.129
+        STONE: 0.855
+        GOLD: 0.049
+        IRON: 1.55
+        DIAMOND: 5.06
+    Armor:
+        LEATHER: 0.313
+        CHAIN: 1.16
+        GOLD: 0.254
+        IRON: 1.55
+        DIAMOND: 3.21
+    Initial-Level-Cost:
+    WOOD: 3
+    STONE: 5
+    GOLD: 3
+    IRON: 10
+    DIAMOND: 30
 Repair-Exp-Cost:
-    WOOD: 0.6
-    STONE: 0.9
+    WOOD: 0.1
+    STONE: 0.5
     GOLD: 0.0
     IRON: 0.3
     DIAMOND: 0.2
@@ -27,17 +34,18 @@ Check-Duration-Seconds: 1814400
 Exp-Awards:
     PICKAXE:
         STONE: 5
+        SANDSTONE: 2
         NETHERRACK: 1
-        GLOWSTONE: 50
+        GLOWSTONE: 20
         ENDER_STONE: 7 
         OBSIDIAN: 50
-        COAL_ORE: 50
-        IRON_ORE: 100
-        GOLD_ORE: 150
-        REDSTONE_ORE: 100
-        LAPIS_ORE: 200
-        EMERALD_ORE: 800
-        DIAMOND_ORE: 300
+        COAL_ORE: 20
+        IRON_ORE: 50
+        GOLD_ORE: 60
+        REDSTONE_ORE: 30
+        LAPIS_ORE: 75
+        EMERALD_ORE: 250
+        DIAMOND_ORE: 100
     SPADE:
         DIRT: 5
         MYCEL: 8

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.migsect.LevelUpTools.Helper.RawMaterial;
-import me.migsect.LevelUpTools.Helper.ToolType;
+import me.migsect.LevelUpTools.Helper.ItemType;
 import me.migsect.LevelUpTools.Helper;
 import me.migsect.LevelUpTools.LevelUpTools;
 
@@ -38,7 +38,7 @@ public class DataManager
 	private static HashMap<RawMaterial, Double> repair_ratio = new HashMap<RawMaterial, Double>();
 	
 	// This list stores all the types of items that can be turned into a leveling tool
-	private static List<ToolType> levelable_types = new ArrayList<ToolType>();
+	private static List<ItemType> levelable_types = new ArrayList<ItemType>();
 	
 	// These values determine price changes for certain enchantments.
 	//   The equation for this (basic per) is initial_cost * uni_cost_increase^cur_level * cost_increase^cur_level
@@ -48,7 +48,7 @@ public class DataManager
 	private static boolean force_safe_ench = false;
 	
 	// Tool Block Gains
-	private static HashMap<ToolType, HashMap<String, Integer>> tool_exp_gains = new HashMap<ToolType, HashMap<String, Integer>>();
+	private static HashMap<ItemType, HashMap<String, Integer>> tool_exp_gains = new HashMap<ItemType, HashMap<String, Integer>>();
 	
 	// Do Placed Check
 	private static boolean check_if_placed = true;
@@ -56,7 +56,7 @@ public class DataManager
 	// EnchantmentInformation
 	private static HashMap<String, EnchantmentInfo> enchantments = new HashMap<String, EnchantmentInfo>();
 	// Tool Enchants
-	private static HashMap<ToolType, List<EnchantmentInfo>> tool_enchants = new HashMap<ToolType, List<EnchantmentInfo>>();
+	private static HashMap<ItemType, List<EnchantmentInfo>> tool_enchants = new HashMap<ItemType, List<EnchantmentInfo>>();
 	
 	// formatting
 	private static HashMap<Integer, String> level_formatting = new HashMap<Integer, String>();
@@ -68,7 +68,7 @@ public class DataManager
 	public DataManager(LevelUpTools plugin)
 	{
 		DataManager.plugin = plugin;
-		for(ToolType c : ToolType.values())
+		for(ItemType c : ItemType.values())
 		{
 			// plugin.logger.info(c.toString() + " placed.");
 			tool_enchants.put(c, new ArrayList<EnchantmentInfo>());
@@ -91,7 +91,7 @@ public class DataManager
 	
 	public static double getRepairRatio(RawMaterial mat){return repair_ratio.get(mat);}
 	
-	public static List<EnchantmentInfo> getToolEnchants(ToolType tool){return tool_enchants.get(tool);}
+	public static List<EnchantmentInfo> getToolEnchants(ItemType tool){return tool_enchants.get(tool);}
 	
 	public static int getEnchantmentBaseCost(String raw_name){return enchantments.get(raw_name).getBaseCost();}
 	public static int getEnchantmentBaseCost(Enchantment ench){return getEnchantmentBaseCost(ench.toString());}
@@ -99,7 +99,7 @@ public class DataManager
 	public static int getEnchantmentMaxLevel(String raw_name){return enchantments.get(raw_name).getMaxLevel();}
 	public static int getEnchantmentMaxLevel(Enchantment ench){return getEnchantmentMaxLevel(ench.toString());}
 	
-	public static int getExperienceAward(ToolType tool, MaterialInfo mat_info)
+	public static int getExperienceAward(ItemType tool, MaterialInfo mat_info)
 	{
 		if(!tool_exp_gains.containsKey(tool)) return 0;
 		if(!tool_exp_gains.get(tool).containsKey(mat_info.toString())) return 0;
@@ -107,7 +107,7 @@ public class DataManager
 	}
 	public static boolean hasExperienceAward(MaterialInfo mat_info)
 	{
-		for(ToolType type : tool_exp_gains.keySet())
+		for(ItemType type : tool_exp_gains.keySet())
 		{
 			if(tool_exp_gains.get(type).containsKey(mat_info.toString())) return true;
 		}
@@ -115,8 +115,8 @@ public class DataManager
 	}
 	public static boolean doSafeEnchants(){return force_safe_ench;}
 	public static boolean doCheckIfPlaced(){return check_if_placed;}
-	public static List<ToolType> getLevelableTypes(){return levelable_types;}
-	public static boolean canBeLeveled(ToolType type){return levelable_types.contains(type);}
+	public static List<ItemType> getLevelableTypes(){return levelable_types;}
+	public static boolean canBeLeveled(ItemType type){return levelable_types.contains(type);}
 	
 	public static EnchantmentInfo getEnchantmentInfo(Enchantment ench){return enchantments.get(ench.toString());}
 	public static EnchantmentInfo getEnchantmentInfo(String raw_name){return enchantments.get(raw_name);}
@@ -245,7 +245,7 @@ public class DataManager
 		List<String> levelable_types_str = plugin.getConfig().getStringList("Levable-Item-Types");
 		for(String line : levelable_types_str)
 		{
-			ToolType tool = ToolType.stringToToolType(line);
+			ItemType tool = ItemType.stringToToolType(line);
 			if(tool == null)
 			{
 				plugin.logger.warning("In Config: " + line + " is not an tool type.");
@@ -275,7 +275,7 @@ public class DataManager
 			List<String> acceptable_tools = plugin.getConfig().getStringList("Vanilla-Enchantments." + current_keys.get(i) + ".Tools");
 			for(int c = 0 ; c < acceptable_tools.size(); c++)
 			{
-				ToolType tool = ToolType.stringToToolType(acceptable_tools.get(c));
+				ItemType tool = ItemType.stringToToolType(acceptable_tools.get(c));
 				if(tool.equals(null))
 				{
 					plugin.logger.warning("In Config: " + acceptable_tools.get(c) + " is not an tool.");
@@ -314,7 +314,7 @@ public class DataManager
 				List<MaterialInfo> mat_info_to_add = Helper.getMaterialInfo(item_keys.get(j));
 				for(MaterialInfo item : mat_info_to_add)
 				{
-					tool_exp_gains.get(ToolType.stringToToolType(current_keys.get(i))).put(item.toString(), plugin.getConfig().getInt("Exp-Awards." + current_keys.get(i) + "." + item_keys.get(j)));
+					tool_exp_gains.get(ItemType.stringToToolType(current_keys.get(i))).put(item.toString(), plugin.getConfig().getInt("Exp-Awards." + current_keys.get(i) + "." + item_keys.get(j)));
 					// MaterialInfo test_item = new MaterialInfo(item.getMaterial(), item.getDurability());
 					// plugin.logger.info(current_keys.get(i) + " - " + item.toString() + " found: " + plugin.getConfig().getInt("Exp-Awards." + current_keys.get(i) + "." + item_keys.get(j)));
 					// plugin.logger.info(" True-Input: " + tool_exp_gains.get(ToolType.stringToToolType(current_keys.get(i))).get(test_item.toString()));
