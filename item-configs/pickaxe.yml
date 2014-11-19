@@ -1,0 +1,118 @@
+enabled: true
+item-types:
+ - WOOD_PICKAXE
+ - STONE_PICKAXE
+ - IRON_PICKAXE
+ - GOLD_PICKAXE
+ - DIAMOND_PICKAXE
+Exp-Awards:
+    STONE: 5
+    SANDSTONE: 2
+    NETHERRACK: 1
+    GLOWSTONE: 20
+    ENDER_STONE: 7 
+    OBSIDIAN: 50
+    COAL_ORE: 20
+    IRON_ORE: 50
+    GOLD_ORE: 60
+    REDSTONE_ORE: 30
+    LAPIS_ORE: 75
+    EMERALD_ORE: 250
+    DIAMOND_ORE: 100    
+Level-Increase: 1.00
+Enchantment-Increase: 1.25
+Item-Increase:
+    WOOD_PICKAXE: 0.129
+    STONE_PICKAXE: 0.855
+    IRON_PICKAXE: 0.049
+    GOLD_PICKAXE: 1.55
+    DIAMOND_PICKAXE: 5.06  
+Initial-Level-Cost:
+    WOOD_PICKAXE: 3
+    STONE_PICKAXE: 5
+    IRON_PICKAXE: 3
+    GOLD_PICKAXE: 10
+    DIAMOND_PICKAXE: 30  
+Repair:
+    Type: REMAINING
+    Material-Amount: 1
+    Repaired-Amount: 0.5
+    Material:
+        WOOD_PICKAXE: WOOD_PLANKS
+        STONE_PICKAXE: COBBLESTONE
+        IRON_PICKAXE: IRON_INGOT
+        GOLD_PICKAXE: GOLD_INGOT
+        DIAMOND_PICKAXE: DIAMOND
+    Level-Cost:
+        WOOD_PICKAXE: 0
+        STONE_PICKAXE: 1
+        IRON_PICKAXE: 3
+        GOLD_PICKAXE: 0
+        DIAMOND_PICKAXE: 10  
+    Experience-Loss:
+        WOOD_PICKAXE: 0.1
+        STONE_PICKAXE: 0.5
+        IRON_PICKAXE: 0.0
+        GOLD_PICKAXE: 0.3
+        DIAMOND_PICKAXE: 0.2
+vanilla-enchantments:
+    DIG_SPEED:
+        Display-Name: Efficiency
+        Display-Material: DIAMOND_PICKAXE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 400
+        Cost-Increase: 1.5
+        Max-Level: 10
+        Incompatabilities: []
+        Dependencies: 
+    DURABILITY:
+        Display-Name: Unbreaking
+        Display-Material: IRON_INGOT
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 800
+        Cost-Increase: 1.5
+        Max-Level: 5
+        Incompatabilities: []
+        Dependencies: 
+            '1':
+                LEVEL_SUM: 1
+            '2':
+                LEVEL_SUM: 3
+            '3':
+                LEVEL_SUM: 5
+    LOOT_BONUS_BLOCKS:
+        Display-Name: Fortune
+        Display-Material: GOLD_PICKAXE
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 500
+        Cost-Increase: 2
+        Max-Level: 3
+        Incompatabilities:
+         - SILK_TOUCH
+        Dependencies:
+            '1':            
+                LEVEL_SUM: 4
+    SILK_TOUCH:
+        Display-Name: Silk Touch
+        Display-Material: SHEARS
+        Display-Durability: 0
+        Display-Amount: 1
+        Display-Lore: []
+        Upgrade-Cost: 5000
+        Cost-Increase: 2
+        Max-Level: 1
+        Incompatabilities:
+         - LOOT_BONUS_BLOCKS
+        Dependencies:
+            '1'
+                LEVEL_SUM: 5
+custom-enchantments:
+    DRILLING:
+        Display-Name: Drilling
+        Display-Material: 

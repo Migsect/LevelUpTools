@@ -24,10 +24,6 @@ Repair-Exp-Cost:
     GOLD: 0.0
     IRON: 0.3
     DIAMOND: 0.2
-Levable-Item-Types:
- - PICKAXE
- - AXE
- - SPADE
 Cost-Increase: 1.25
 Do-Check-Placed-Block: true
 Check-Duration-Seconds: 1814400
