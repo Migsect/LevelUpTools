@@ -1,24 +1,24 @@
 enabled: true
 item-types:
- - WOOD_PICKAXE
- - STONE_PICKAXE
- - IRON_PICKAXE
- - GOLD_PICKAXE
- - DIAMOND_PICKAXE
+ - 'WOOD_PICKAXE'
+ - 'STONE_PICKAXE'
+ - 'IRON_PICKAXE'
+ - 'GOLD_PICKAXE'
+ - 'DIAMOND_PICKAXE'
 Exp-Awards:
-    STONE: 5
-    SANDSTONE: 2
-    NETHERRACK: 1
-    GLOWSTONE: 20
-    ENDER_STONE: 7 
-    OBSIDIAN: 50
-    COAL_ORE: 20
-    IRON_ORE: 50
-    GOLD_ORE: 60
-    REDSTONE_ORE: 30
-    LAPIS_ORE: 75
-    EMERALD_ORE: 250
-    DIAMOND_ORE: 100    
+    'STONE': 5
+    'SANDSTONE': 2
+    'NETHERRACK': 1
+    'GLOWSTONE': 20
+    'ENDER_STONE': 7 
+    'OBSIDIAN': 50
+    'COAL_ORE': 20
+    'IRON_ORE': 50
+    'GOLD_ORE': 60
+    'REDSTONE_ORE': 30
+    'LAPIS_ORE': 75
+    'EMERALD_ORE': 250
+    'DIAMOND_ORE': 100    
 Level-Increase: 1.00
 Enchantment-Increase: 1.25
 Item-Increase:

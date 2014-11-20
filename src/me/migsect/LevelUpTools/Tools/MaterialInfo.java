@@ -10,6 +10,7 @@ public class MaterialInfo
 	private short durability = 0;
 	private Material material = null;
 	
+	// CONSTRUCTORS
 	public MaterialInfo(Block block)
 	{
 		material = block.getType();
@@ -30,7 +31,21 @@ public class MaterialInfo
 		this.material = mat;
 		this.durability  = durability;
 	}
+	public MaterialInfo(String str)
+	{
+		String[] split = str.split(":");
+		this.material = Material.getMaterial(split[0]);
+		if(split.length >= 2)
+		{
+			try
+			{
+				this.durability = Short.parseShort(split[1]);
+			} 
+			catch(NumberFormatException e){;}// Do Nothing
+		}
+	}
 	
+	// PUBLIC FUNCTION equals
 	public boolean equals(MaterialInfo other)
 	{
 		if(this.material != other.material) return false;
@@ -52,16 +67,26 @@ public class MaterialInfo
 		MaterialInfo other = new MaterialInfo(mat);
 		return this.equals(other);
 	}
-	public String toString()
+	
+	// PUBLIC getters
+	public String toString(){return material.toString() + ":" + durability;}
+	public short getDurability(){return durability;}
+	public Material getMaterial(){return material;}
+	
+	// STATIC methods
+	static public boolean canConvert(String str)
 	{
-		return material.toString() + ":" + durability;
-	}
-	public short getDurability()
-	{
-		return durability;
-	}
-	public Material getMaterial()
-	{
-		return material;
+		String[] split = str.split(":");
+		Material mat = Material.getMaterial(split[1]);
+		if(mat == null) return false;
+		if(split.length >= 2)
+		{
+			try
+			{
+				Short.parseShort(split[1]);
+			} 
+			catch(NumberFormatException e){return false;}// Do Nothing
+		}
+		return true;
 	}
 }
